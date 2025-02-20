@@ -1,0 +1,56 @@
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=${POSTGRES_PORT:-5432}
+      - POSTGRES_DB=${POSTGRES_DB:-app}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - REDIS_HOST=redis
+      - REDIS_PORT=${REDIS_PORT:-6379}
+    command: >
+      sh -c "poetry run aerich upgrade &&
+             poetry run python main.py"
+    networks:
+      - app_network
+
+  postgres:
+    image: postgres:15
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-app}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+
+  redis:
+    image: redis:7
+    env_file:
+      - .env
+    command: redis-server --requirepass ${REDIS_PASSWORD:-redis}
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-redis}
+    volumes:
+      - redis_data:/data
+    networks:
+      - app_network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  app_network:
+    driver: bridge
