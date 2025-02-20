@@ -20,7 +20,7 @@ COPY pyproject.toml poetry.lock ./
 
 # Настройка Poetry и установка зависимостей
 RUN poetry config virtualenvs.create false && \
-    poetry install --no-interaction --no-ansi
+    poetry install --no-interaction --no-ansi --no-root
 
 # Копирование исходного кода
 COPY . .
