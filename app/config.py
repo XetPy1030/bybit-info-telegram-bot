@@ -33,4 +33,4 @@ class AppConfig:
 
 
 class BackgroundTasksConfig:
-    ASSET_TOTAL_BALANCE_UPDATE_INTERVAL = config('ASSET_TOTAL_BALANCE_UPDATE_INTERVAL', default=60 * 60)
+    ASSET_TOTAL_BALANCE_UPDATE_INTERVAL = config('ASSET_TOTAL_BALANCE_UPDATE_INTERVAL', default=60 * 60, cast=int)
