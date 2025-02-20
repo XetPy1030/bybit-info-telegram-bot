@@ -24,5 +24,6 @@ class BybitApiConfig:
 class AppConfig:
     BOT_TOKEN = config('BOT_TOKEN')
     ADMIN_IDS = config('ADMIN_IDS', default='')
+    DEFAULT_QUOTE_COIN = config('DEFAULT_QUOTE_COIN', default='BTC')
 
     ADMIN_IDS = [int(id) for id in ADMIN_IDS.split(',')]
