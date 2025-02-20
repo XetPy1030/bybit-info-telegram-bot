@@ -21,6 +21,8 @@ services:
     command: >
       sh -c "poetry run aerich upgrade &&
              poetry run python main.py"
+    networks:
+      - app_network
 
   postgres:
     image: postgres:15
@@ -34,6 +36,8 @@ services:
       - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
 
   redis:
     image: redis:7
@@ -46,9 +50,13 @@ services:
       - "${REDIS_PORT:-6379}:6379"
     volumes:
       - redis_data:/data
+    networks:
+      - app_network
 
 volumes:
   postgres_data:
   redis_data:
 
-
+networks:
+  app_network:
+    driver: bridge
