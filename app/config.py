@@ -30,3 +30,7 @@ class AppConfig:
     TIMEZONE = config('TIMEZONE', default='Europe/Moscow')
 
     ADMIN_IDS = [int(id) for id in ADMIN_IDS.split(',')]
+
+
+class BackgroundTasksConfig:
+    ASSET_TOTAL_BALANCE_UPDATE_INTERVAL = config('ASSET_TOTAL_BALANCE_UPDATE_INTERVAL', default=60 * 60)

@@ -11,7 +11,7 @@ router = Router()
 
 @router.message(Command("balance"))
 async def balance(message: Message):
-    balance = await Balance.all().order_by("-created_at").last()
+    balance = await Balance.all().order_by("-created_at").first()
     if balance is None:
         await message.answer("Balance not found")
         return
