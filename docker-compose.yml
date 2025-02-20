@@ -18,6 +18,9 @@ services:
       - REDIS_PORT=${REDIS_PORT:-6379}
     ports:
       - "${APP_PORT:-8000}:8000"
+    command: >
+      sh -c "poetry run aerich upgrade &&
+             poetry run python main.py"
 
   postgres:
     image: postgres:15

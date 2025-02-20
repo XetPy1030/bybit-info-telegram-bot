@@ -6,7 +6,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Установка Poetry
-RUN curl -sSL https://install.python-poetry.org | python3 -
+ENV POETRY_HOME=/opt/poetry
+RUN curl -sSL https://install.python-poetry.org | python3 - && \
+    cd /usr/local/bin && \
+    ln -s /opt/poetry/bin/poetry && \
+    poetry --version
 
 # Установка рабочей директории
 WORKDIR /app
@@ -15,8 +19,8 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 
 # Настройка Poetry и установка зависимостей
-RUN poetry config virtualenvs.create false \
-    && poetry install --no-interaction --no-ansi
+RUN poetry config virtualenvs.create false && \
+    poetry install --no-interaction --no-ansi
 
 # Копирование исходного кода
 COPY . .
