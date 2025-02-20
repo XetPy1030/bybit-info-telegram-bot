@@ -27,5 +27,6 @@ class AppConfig:
     DEFAULT_QUOTE_COIN = config('DEFAULT_QUOTE_COIN', default='BTC')
     LOGGING_LEVEL = config('LOGGING_LEVEL', default='INFO')
     LOGGER_PRETTY_PRINT = config('LOGGER_PRETTY_PRINT', default=True)
+    TIMEZONE = config('TIMEZONE', default='Europe/Moscow')
 
     ADMIN_IDS = [int(id) for id in ADMIN_IDS.split(',')]

@@ -1,14 +1,25 @@
 import asyncio
-import logging
+import structlog
 
-from app.bybit.api import BybitUserApi
-
-logging.basicConfig(level=logging.DEBUG)
+from app.utils.logging import setup_logger
 
 
 async def main():
-    user_api = BybitUserApi(secret_key='eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0Mjc5MTgwOTcsImIiOjAsInAiOjMsInVhIjoiIiwiZ2VuX3RzIjoxNzQwMDY4OTg4LCJleHAiOjE3NDAzMjgxODgsIm5zIjoiIiwiZXh0Ijp7IlN0YXRpb24tVHlwZSI6IiIsIm1jdCI6IjE3Mzg4NjgxMzkiLCJzaWQiOiJCWUJJVCJ9LCJkIjpmYWxzZSwic2lkIjoiIn0.bXSqIWT9Ph-k5TG_IH7JfW79Y69N2e4D4aqnsu6J5jSERqY8S6TrQQWi09Sa2Q6YNhkVn6GuktVcq6SVWdcctQ')
-    print(await user_api.get_asset_total_balance(quote_coin='BTC'))
+    setup_logger()
+    logger = structlog.get_logger(__name__)
+    logger.info("Starting application")
+
+    from app.database import init as init_database
+    await init_database()
+
+    from app.bot.instance import dp
+    from app.bot.handlers import router
+    dp.include_router(router)
+    logger.info("Bot handlers included")
+
+    logger.info("Starting bot polling...")
+    from app.bot.instance import bot
+    await dp.start_polling(bot)
 
 
 if __name__ == "__main__":
