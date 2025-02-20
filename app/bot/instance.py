@@ -1,4 +1,6 @@
 from aiogram import Bot, Dispatcher
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
 from aiogram.fsm.storage.redis import RedisStorage
 from redis.asyncio.client import Redis
 
@@ -13,5 +15,8 @@ storage = RedisStorage(
     )
 )
 
-bot = Bot(token=config.AppConfig.BOT_TOKEN)
+bot = Bot(
+    token=config.AppConfig.BOT_TOKEN,
+    default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+)
 dp = Dispatcher(storage=storage)
