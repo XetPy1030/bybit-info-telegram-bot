@@ -46,7 +46,7 @@ async def remove_previous_jobs():
 
 
 async def start_scheduler():
-    first_key = await BybitSecretKey.all().order_by("-updated_at").first()
+    first_key = await BybitSecretKey.get_last()
     if first_key:
         await schedule_expiration_notifications(first_key)
 

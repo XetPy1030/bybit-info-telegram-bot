@@ -10,8 +10,8 @@ from app.database.models import BybitSecretKey
 router = Router()
 
 
-@router.message(Command("set_cookies"))
-async def set_cookies(message: Message):
+@router.message(Command("set_secret_key"))
+async def set_secret_key(message: Message):
     try:
         args = message.text.split(" ")[1:]
         if not args:
@@ -29,6 +29,15 @@ async def set_cookies(message: Message):
                 return
 
         await BybitSecretKey.create(secret_key=secret_key, expires_at=expires_at)
-        await message.answer("✅ Cookies successfully set")
+        await message.answer("✅ Secret key successfully set")
     except Exception as e:
-        await message.answer(f"❌ Error setting cookies: {str(e)}")
+        await message.answer(f"❌ Error setting secret key: {str(e)}")
+
+
+@router.message(Command("expires_at"))
+async def expires_at(message: Message):
+    secret_key = await BybitSecretKey.get_last()
+    if not secret_key:
+        await message.answer("❌ Secret key not found")
+        return
+    await message.answer(f"🕒 Secret key expires at: {secret_key.expires_at}")

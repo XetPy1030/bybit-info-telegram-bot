@@ -26,6 +26,8 @@ async def main():
 
     logger.info("Starting bot polling...")
     from app.bot.instance import bot
+    from app.bot.commands import setup_commands
+    await setup_commands(bot)
     await dp.start_polling(bot)
 
 

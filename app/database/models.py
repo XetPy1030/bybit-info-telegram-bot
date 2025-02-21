@@ -27,3 +27,7 @@ class BybitSecretKey(models.Model):
 
     created_at = fields.DatetimeField(auto_now_add=True)
     updated_at = fields.DatetimeField(auto_now=True)
+
+    @classmethod
+    async def get_last(cls):
+        return await cls.all().order_by("-updated_at").first()
