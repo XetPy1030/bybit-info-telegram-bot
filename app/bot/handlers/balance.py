@@ -5,7 +5,7 @@ from aiogram.filters import Command
 from app.bybit.consts import ACCOUNT_TYPE_NAMES
 from app.database.models import Balance, BalanceItem
 from app.utils.datetime import format_dt
-
+from app.utils.updaters import update_asset_total_balance
 router = Router()
 
 
@@ -24,3 +24,13 @@ async def balance(message: Message):
                     for item in await balance.items.all() if item.quote_balance > 0)
 
     await message.answer(text)
+
+
+@router.message(Command("update_balance"))
+async def update_balance(message: Message):
+    message = await message.answer("Updating balance...")
+    try:
+        await update_asset_total_balance()
+        await message.edit_text("Balance updated")
+    except Exception as e:
+        await message.edit_text(f"Error updating balance: {e}")

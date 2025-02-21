@@ -10,6 +10,7 @@
 /balance - получить информацию о балансе
 /set_secret_key - установить secret_key и дату истечения
 /expires_at - проверить когда истекает secret_key
+/update_balance - обновить баланс
 
 ## Установка
 
