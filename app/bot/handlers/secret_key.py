@@ -6,7 +6,6 @@ from aiogram.filters import Command
 
 from app.database.models import BybitSecretKey
 
-
 router = Router()
 
 
@@ -15,9 +14,14 @@ async def set_secret_key(message: Message):
     try:
         args = message.text.split(" ")[1:]
         if not args:
-            await message.answer("Please provide a secret key")
+            await message.answer("Please provide a secret key.\n\n"
+                                 "To get the secret key:\n"
+                                 "1. Go to Bybit website (www.bybit.com)\n"
+                                 "2. Open browser Developer Tools (F12)\n"
+                                 "3. Find 'secret_key' in cookies\n"
+                                 "4. Copy the value of 'secret_key' cookie")
             return
-            
+
         secret_key = args[0]
         expires_at = None
         if len(args) > 1:

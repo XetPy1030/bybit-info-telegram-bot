@@ -9,16 +9,15 @@ router = Router()
 @router.message(Command("start"))
 async def start(message: Message):
     welcome_message = (
-        "👋 Добро пожаловать в Bybit Info Bot!\n\n"
-        "🤖 Этот бот поможет вам получать информацию о вашем балансе на Bybit.\n\n"
-        "Доступные команды:\n"
-        "📝 /start - показать это сообщение\n"
-        "💰 /balance - получить информацию о балансе\n"
-        "🔑 /set_secret_key - установить secret key и дату истечения\n" 
-        "⏰ /expires_at - проверить когда истекает secret key\n\n"
-        "❗️ Для начала работы необходимо установить secret key с помощью команды /set_secret_key\n"
-        "Формат: /set_secret_key КЛЮЧ ГГГГ-ММ-ДД\n\n"
-        "Если у вас возникли вопросы, обратитесь к документации или администратору."
+        "👋 Welcome to Bybit Info Bot!\n\n"
+        "🤖 This bot will help you get information about your balance on Bybit.\n\n"
+        "Available commands:\n"
+        "📝 /start - show this message\n"
+        "💰 /balance - get balance information\n"
+        "🔑 /set_secret_key - set secret key and expiration date\n"
+        "⏰ /expires_at - check when secret key expires\n\n"
+        "❗️ To get started, you need to set a secret key using the /set_secret_key command\n"
+        "Format: /set_secret_key KEY YYYY-MM-DD\n\n"
+        "If you have any questions, please refer to the documentation or contact an administrator."
     )
     await message.answer(welcome_message)
-
