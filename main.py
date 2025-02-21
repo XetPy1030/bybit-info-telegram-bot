@@ -10,6 +10,8 @@ async def main():
 
     from app.database import init as init_database
     await init_database()
+    
+    from app import signals  # noqa:F401
 
     from app.bot.instance import dp
     from app.bot.handlers import router

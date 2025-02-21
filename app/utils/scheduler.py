@@ -39,20 +39,10 @@ async def schedule_expiration_notifications(secret_key: BybitSecretKey):
             )
 
 
-@post_save(BybitSecretKey)
-async def on_bybit_secret_key_save(
-    sender: type[BybitSecretKey],
-    instance: BybitSecretKey,
-    created: bool,
-    using_db: BaseDBAsyncClient | None,
-    update_fields: list[str],
-):
-    if created:
-        logger.info("Removing previous scheduler jobs")
-        for job in scheduler.get_jobs():
-            job.remove()
-            
-        await schedule_expiration_notifications(instance)
+async def remove_previous_jobs():
+    logger.info("Removing previous scheduler jobs")
+    for job in scheduler.get_jobs():
+        job.remove()
 
 
 async def start_scheduler():
