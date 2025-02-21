@@ -18,7 +18,7 @@ async def start(message: Message):
         "⏰ /expires_at - check when secret key expires\n"
         "🔄 /update_balance - update balance information\n\n"
         "❗️ To get started, you need to set a secret key using the /set_secret_key command\n"
-        "Format: /set_secret_key KEY YYYY-MM-DD\n\n"
+        "Format: /set_secret_key KEY YYYY-MM-DDTHH:mm:ss\n\n"
         "If you have any questions, please refer to the documentation or contact an administrator."
     )
     await message.answer(welcome_message)
