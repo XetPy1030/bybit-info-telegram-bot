@@ -5,6 +5,7 @@ from aiogram.types import Message
 from aiogram.filters import Command
 
 from app.database.models import BybitSecretKey
+from app.utils.datetime import format_dt
 
 router = Router()
 
@@ -44,4 +45,4 @@ async def expires_at(message: Message):
     if not secret_key:
         await message.answer("❌ Secret key not found")
         return
-    await message.answer(f"🕒 Secret key expires at: {secret_key.expires_at}")
+    await message.answer(f"🕒 Secret key expires at: {format_dt(secret_key.expires_at)}")
