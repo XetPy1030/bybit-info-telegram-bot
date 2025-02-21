@@ -19,6 +19,9 @@ async def main():
     from app.background_tasks import run_background_tasks
     await run_background_tasks()
 
+    from app.utils.scheduler import start_scheduler
+    await start_scheduler()
+
     logger.info("Starting bot polling...")
     from app.bot.instance import bot
     await dp.start_polling(bot)

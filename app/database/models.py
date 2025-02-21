@@ -23,6 +23,7 @@ class Balance(models.Model):
 
 class BybitSecretKey(models.Model):
     secret_key = fields.CharField(max_length=511)
+    expires_at = fields.DatetimeField(null=True)
 
     created_at = fields.DatetimeField(auto_now_add=True)
     updated_at = fields.DatetimeField(auto_now=True)
